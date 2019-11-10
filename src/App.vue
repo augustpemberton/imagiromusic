@@ -5,6 +5,7 @@
 </template>
 
 <style lang="scss">
+
 #app {
   font-family: $sans-serif;
   color: $secondary;
@@ -12,11 +13,11 @@
 }
 
 body {
-    margin: 0px;
-    font-family: $sans-serif;
-    color: $primary;
-    background: $background-color;
-    -webkit-text-size-adjust: 100%; //fix for iOS
+  margin: 0px;
+  font-family: $sans-serif;
+  color: $primary;
+  background: $background-color;
+  -webkit-text-size-adjust: 100%; //fix for iOS
 }
 
 </style>

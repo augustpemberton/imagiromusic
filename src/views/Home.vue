@@ -1,9 +1,7 @@
 <template>
   <section class="splash">
     <h1>Blocksworld Tile Puzzle</h1>
-    <transition name="fadeUp" appear>
-      <h3 style="animation-duration: 1.5s;">An AI Coursework Assignment</h3>
-    </transition>
+    <h3 style="animation-duration: 1.5s;">An AI Coursework Assignment</h3>
   </section>
 </template>
 

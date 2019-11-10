@@ -1,18 +1,28 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <section class="splash">
+    <h1>Blocksworld Tile Puzzle</h1>
+    <transition name="fadeUp" appear>
+      <h3 style="animation-duration: 1.5s;">An AI Coursework Assignment</h3>
+    </transition>
+  </section>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
+  data: function () {
+    return {
+      show: true
+    }
   }
 }
 </script>
+
+<style lang="scss">
+section.splash {
+  padding: 20vh 10vw;
+  color: white;
+  background-color: $primary;
+  h1 { font-size: 3.2vw; }
+  h3 { font-size: 1.5vw; }
+}
+</style>

@@ -9,8 +9,11 @@
 
     <section class="depth-first light">
       <b-container fluid>
-        <h3>Depth First Search</h3>
-        <blockstage :height="600" /> 
+        <h3>Blockstage</h3>
+        <blockstage 
+          :height="600" 
+          class="animated slideInLeft"
+        /> 
       </b-container>
     </section>
   </div>

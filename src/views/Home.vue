@@ -1,7 +1,9 @@
 <template>
   <section class="splash">
-    <h1>Blocksworld Tile Puzzle</h1>
-    <h3 style="animation-duration: 1.5s;">An AI Coursework Assignment</h3>
+    <div class="splash-text animated fadeInUp">
+      <h1>Blocksworld Tile Puzzle</h1>
+      <h3>An AI Coursework Assignment</h3>
+    </div>
   </section>
 </template>
 

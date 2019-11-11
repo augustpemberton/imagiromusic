@@ -10,7 +10,6 @@ export default class DFS{
     this.goalState = goalState;
   }
   generateMoveSet() {
-    
-    return [direction.DOWN, direction.LEFT, direction.UP, direction.RIGHT];
+    return [];
   }
 }

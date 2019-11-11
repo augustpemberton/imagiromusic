@@ -19,12 +19,12 @@
           }"
         />
         <v-text
-          v-for="(tile, index) in filledTiles"
-          :key="'text-' + filledTiles[index].tileNumber"
+          v-for="tile in tiles"
+          :key="'text-' + tile.x + tile.y"
           :config="{
-            x: (filledTiles[index].x + (tileSize.width / 3)),
-            y: filledTiles[index].y + (tileSize.width / 4),
-            text: filledTiles[index].tileNumber,
+            x: tile.x + (tileSize.width / 3),
+            y: tile.y + (tileSize.width / 4),
+            text: tile.text,
             fontSize: tileSize.width / 2,
             fontFamily: 'Lexend Deca',
             fill: 'black',
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import State from '@/components/State.js';
 var tileType = {
   EMPTY: 0,
   TILE: 1,
@@ -59,13 +60,13 @@ export default {
     },
     initialTileLocations: {
       type: Array,
-      default: () => [3,6,8]
+      default: () => [1,5,13]
     },
     initialPlayerLocation: {
       type: Number,
       default: 0
     },
-    goalState: {
+    goalPositions: {
       type: Array,
       default: () => [1, 5, 9]
     }
@@ -73,6 +74,7 @@ export default {
   data() {
     return {
       loaded: false,
+      state: {}, 
       gridSize: 4,
       gridPadding: 5,
       gridStroke: 5,
@@ -84,64 +86,52 @@ export default {
         width: 0,
         height: 0
       },
-      tiles: [],
-      tileColor: 'green',
-      playerColor: 'red',
-      playerLocation: 0,
+      playerLocation: 9,
+      tiles: []
     };
   },
   computed: {
     filledTiles: function () {
-      var filledTiles = this.tiles.filter(tile => {
+      var filledTiles = this.state.tiles.filter(tile => {
         return tile.tileNumber != -1
       });
       return filledTiles;
     }
   },
   mounted: function() {
-    this.playerLocation = this.initialPlayerLocation;
     this.initTiles();
+    this.updateState();
+
     window.addEventListener("resize", this.resizeStage);
     this.resizeStage();
+
     document.onkeydown = this.checkKey;
   },
   methods: {
     initTiles: function() {
-      var tiles = this.gridSize * this.gridSize;
-      for (var i = 0; i < tiles; i++) {
+      this.state = State.initState(this.gridSize, this.initialTileLocations, this.playerLocation);
+      this.loaded = true;
+    },
+    updateState: function() {
+      this.tiles = [];
+      for (var i=0; i<this.state.tiles.length; i++) {
+        var grid_y = Math.floor(i / this.gridSize);
+        var grid_x = i % this.gridSize;
+        var y =  grid_y * this.tileWidth() + this.gridPadding;
+        var x =  grid_x * this.tileWidth()
+                  + (this.stageSize.width/2)
+                  - (this.tileWidth() * (this.gridSize / 2));
         var tile = {
-          x: 0,
-          y: 0,
-          fill: 'white',
-          type: tileType.EMPTY,
-          tileNumber: -1
+          x: x,
+          y: y,
+          fill: this.fillColor(this.state.tiles[i].type),
+          text: ''
         };
-        for (var j=0;j < this.initialTileLocations.length; j++) {
-          if (this.initialTileLocations[j] == i) {
-            tile.type = tileType.TILE;
-            tile.fill = this.tileColor;
-            tile.tileNumber = j + 1;
-          }
-        }
-          
-        if (i == this.playerLocation) {
-          tile.tile = tileType.PLAYER;
-          tile.fill = this.playerColor;
+        if (this.state.tiles[i].type == tileType.TILE) {
+          tile.text = this.state.tiles[i].tileNumber;
         }
         this.tiles.push(tile);
       }
-      this.updateTilePos();
-      this.loaded = true;
-    },
-    updateTilePos: function() {
-      this.tiles.forEach((tile, index) => {
-        var y = Math.floor(index / this.gridSize);
-        var x = index % this.gridSize;
-        this.tiles[index].y = (y * this.tileWidth()) + this.gridPadding;
-        this.tiles[index].x =   x * this.tileWidth()
-                                + (this.stageSize.width/2)
-                                - (this.tileWidth() * (this.gridSize / 2));
-      });
     },
     resizeStage: function() {
       const container = this.$refs.container;
@@ -153,7 +143,7 @@ export default {
       this.tileSize.width = this.tileWidth();
       this.tileSize.height = this.tileWidth();
       this.updateTileSize();
-      this.updateTilePos();
+      this.updateState();
     },
     updateTileSize: function() {
       this.tileSize.width = this.tileWidth();
@@ -190,41 +180,16 @@ export default {
       } 
     },
     movePlayer: function(dir) {
-      var newPosition = 0;
-      if (dir == direction.UP) {
-        newPosition = this.playerLocation - this.gridSize
-        if (newPosition < 0) return;
-
-      } else if (dir == direction.DOWN) {
-        newPosition = this.playerLocation + this.gridSize
-        if (newPosition > (Math.pow(this.gridSize,2))) return;
-
-      } else if (dir == direction.LEFT) {
-        if (this.playerLocation % this.gridSize == 0) return;
-        newPosition = this.playerLocation - 1;
-
-      } else if (dir == direction.RIGHT) {
-        if (this.playerLocation % this.gridSize == this.gridSize - 1) return;
-        newPosition = this.playerLocation + 1;
-      }
-
-      this.tiles[this.playerLocation].type = this.tiles[newPosition].type;
-      this.tiles[this.playerLocation].fill = this.tiles[newPosition].fill;
-      this.tiles[this.playerLocation].tileNumber = this.tiles[newPosition].tileNumber;
-
-      this.tiles[newPosition].type = tileType.PLAYER;
-      this.tiles[newPosition].fill = this.playerColor;
-      this.tiles[newPosition].tileNumber = -1;
-      this.playerLocation = newPosition;
-
+      this.state = this.state.movePlayer(dir);
+      this.updateState();
       this.checkGoal();
     },
     checkGoal: function() {
       var completed = true;
-      for (var i=0; i<this.tiles.length; i++) {
-        if (this.tiles[i].type != tileType.TILE) continue;
-        console.log("Tile " + this.tiles[i].tileNumber + " is at position " + i);
-        if (this.goalState[this.tiles[i].tileNumber - 1] != i) {
+      for (var i=0; i<this.state.tiles.length; i++) {
+        if (this.state.tiles[i].type != tileType.TILE) continue;
+
+        if (this.goalPositions[this.state.tiles[i].tileNumber - 1] != i) {
           completed = false;
           break;
         }
@@ -232,6 +197,14 @@ export default {
       if (completed) {
         alert("Complete!");
       }
+    },
+    fillColor: function(type) {
+      var tileColors = {
+        [tileType.TILE]: "green",
+        [tileType.PLAYER]: "red",
+        [tileType.EMPTY]: "white"
+      }
+      return tileColors[type];
     }
   }
 };

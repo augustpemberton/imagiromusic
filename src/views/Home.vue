@@ -12,9 +12,9 @@
         <h3>Blockstage</h3>
 
         <b-btn
-          @click="DFS()"
+          @click="BFS()"
         >
-          DFS
+          BFS
         </b-btn>
 
         <blockstage 
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import DFS from '@/components/algorithms/DFS.js';
+import BFS from '@/components/algorithms/BFS.js';
 export default {
   data: function () {
     return {
@@ -36,8 +36,8 @@ export default {
     }
   },
   methods: {
-    DFS: function () {
-      var a = new DFS();
+    BFS: function () {
+      var a = new BFS(this.$refs.blockstage.state, this.$refs.blockstage.goalPositions);
       var moveSet = a.generateMoveSet();
       this.moveAlongSet(moveSet, 0);
     },

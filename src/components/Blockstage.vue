@@ -20,13 +20,14 @@
         />
         <v-text
           v-for="(tile, index) in filledTiles"
-          :key="filledTiles[index].tileNumber"
+          :key="'text-' + filledTiles[index].tileNumber"
           :config="{
-            x: (filledTiles[index].x + (tileSize.width / 4)),
-            y: filledTiles[index].y,
+            x: (filledTiles[index].x + (tileSize.width / 3)),
+            y: filledTiles[index].y + (tileSize.width / 4),
             text: filledTiles[index].tileNumber,
             fontSize: tileSize.width / 2,
-            fill: 'black'  
+            fontFamily: 'Lexend Deca',
+            fill: 'black',
           }"
         />
       </v-layer>
@@ -55,6 +56,18 @@ export default {
     height: {
       type: Number,
       default: window.innerHeight
+    },
+    initialTileLocations: {
+      type: Array,
+      default: () => [3,6,8]
+    },
+    initialPlayerLocation: {
+      type: Number,
+      default: 0
+    },
+    goalState: {
+      type: Array,
+      default: () => [1, 5, 9]
     }
   },
   data() {
@@ -71,11 +84,10 @@ export default {
         width: 0,
         height: 0
       },
-      initialTileLocations: [3,6,8],
-      playerLocation: 0,
       tiles: [],
       tileColor: 'green',
-      playerColor: 'red'
+      playerColor: 'red',
+      playerLocation: 0,
     };
   },
   computed: {
@@ -87,6 +99,7 @@ export default {
     }
   },
   mounted: function() {
+    this.playerLocation = this.initialPlayerLocation;
     this.initTiles();
     window.addEventListener("resize", this.resizeStage);
     this.resizeStage();
@@ -105,7 +118,7 @@ export default {
         };
         for (var j=0;j < this.initialTileLocations.length; j++) {
           if (this.initialTileLocations[j] == i) {
-            tile.type = tileType.tile;
+            tile.type = tileType.TILE;
             tile.fill = this.tileColor;
             tile.tileNumber = j + 1;
           }
@@ -203,6 +216,22 @@ export default {
       this.tiles[newPosition].fill = this.playerColor;
       this.tiles[newPosition].tileNumber = -1;
       this.playerLocation = newPosition;
+
+      this.checkGoal();
+    },
+    checkGoal: function() {
+      var completed = true;
+      for (var i=0; i<this.tiles.length; i++) {
+        if (this.tiles[i].type != tileType.TILE) continue;
+        console.log("Tile " + this.tiles[i].tileNumber + " is at position " + i);
+        if (this.goalState[this.tiles[i].tileNumber - 1] != i) {
+          completed = false;
+          break;
+        }
+      }
+      if (completed) {
+        alert("Complete!");
+      }
     }
   }
 };

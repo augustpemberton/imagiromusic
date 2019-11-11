@@ -10,7 +10,15 @@
     <section class="depth-first light">
       <b-container fluid>
         <h3>Blockstage</h3>
+
+        <b-btn
+          @click="DFS()"
+        >
+          DFS
+        </b-btn>
+
         <blockstage 
+          ref="blockstage"
           :height="600" 
           class="animated slideInLeft"
         /> 
@@ -20,10 +28,24 @@
 </template>
 
 <script>
+import DFS from '@/components/algorithms/DFS.js';
 export default {
   data: function () {
     return {
       show: true
+    }
+  },
+  methods: {
+    DFS: function () {
+      var a = new DFS();
+      var moveSet = a.generateMoveSet();
+      this.moveAlongSet(moveSet, 0);
+    },
+    moveAlongSet(moveSet, i) {
+      if (i >= moveSet.length) return;
+      this.$refs.blockstage.movePlayer(moveSet[i]);
+      var vue = this;
+      setTimeout(function () {vue.moveAlongSet(moveSet, i+1)}, 500);
     }
   }
 }

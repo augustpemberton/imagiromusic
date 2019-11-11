@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <router-view/>
+    <navbar />
+    <router-view />
   </div>
 </template>
 
@@ -8,7 +9,7 @@
 
 #app {
   font-family: $sans-serif;
-  color: $secondary;
+  color: $txt-primary;
   min-height: 100vh;
 }
 
@@ -18,6 +19,11 @@ body {
   color: $primary;
   background: $background-color;
   -webkit-text-size-adjust: 100%; //fix for iOS
+  min-height: 150vh;
+}
+
+.center {
+  text-align: center;
 }
 
 </style>

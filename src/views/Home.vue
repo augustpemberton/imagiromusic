@@ -1,10 +1,19 @@
 <template>
-  <section class="splash">
-    <div class="splash-text animated fadeInUp">
-      <h1>Blocksworld Tile Puzzle</h1>
-      <h3>An AI Coursework Assignment</h3>
-    </div>
-  </section>
+  <div class="main">
+    <section class="splash">
+      <div class="splash-text animated fadeInUp">
+        <h1>Blocksworld Tile Puzzle</h1>
+        <h3>An AI Coursework Assignment</h3>
+      </div>
+    </section>
+
+    <section class="depth-first light">
+      <b-container fluid>
+        <h3>Depth First Search</h3>
+        <blockstage :height="600" /> 
+      </b-container>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -18,6 +27,9 @@ export default {
 </script>
 
 <style lang="scss">
+section {
+  padding: 20px;
+}
 section.splash {
   padding: 20vh 10vw;
   color: white;

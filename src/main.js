@@ -4,6 +4,7 @@ import router from './router'
 // 3rd party
 import BootstrapVue from 'bootstrap-vue'
 import VueKonva from 'vue-konva'
+import jQuery from 'jquery'
 
 // import views
 import App from './App.vue'
@@ -17,9 +18,12 @@ import './scss/bootstrap.scss'
 // use 3rd party
 Vue.use(BootstrapVue)
 Vue.use(VueKonva);
+const $ = jQuery;
+window.$ = $;
 
 // create components
 Vue.component('navbar', Navbar)
+
 
 Vue.config.productionTip = false
 new Vue({

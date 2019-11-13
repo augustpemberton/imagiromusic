@@ -1,38 +1,33 @@
 <template>
-  <div 
-    v-if="show" 
-    class="main"
-  >
+  <div>
+    <div 
+      id="fold-container"
+      class="main foldable" 
+    />
+  
     <section class="splash">
-      <p>suh</p>
+      <div class="splash-text animated fadeInUp">
+        <h1 :class="{'flip-h' : flipLogo}">
+          imagiro
+        </h1>
+      </div>
     </section>
-    <div class="splash-text animated fadeInUp">
-      <h1 :class="{'flip-h' : flipLogo}">
-        imagiro
-      </h1>
-    </div>
   </div>
 </template>
 
 <script>
-//import OriDomi from 'oridomi'
+import '@/scripts/fold.js';
 export default {
   data: function () {
     return {
       show: true,
       flipLogo: false,
-      fold: null
     }
   },
   mounted() {
     this.$nextTick(function() {
       window.addEventListener("scroll", this.handleScroll);
     });
-    //this.fold = new OriDomi(".main");
-    /*this.fold.foldUp(() => {
-      this.show = true;
-      this.fold.unfold();
-    });*/
   },
   methods: {
     handleScroll: function () {
@@ -43,21 +38,14 @@ export default {
 </script>
 
 <style lang="scss">
-section {
-  padding: 20px;
-}
+@import '@/scss/fold.scss';
 .main {
-
-  min-height: 150vh;
   background: $bg-image no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-
-  text-align: center;
   h1 {
-    line-height: 100vh;
     color: white;
     -webkit-transition: transform .0.2s ease-in-out;  
     -moz-transition: transform .2s ease-in-out;  
@@ -66,7 +54,18 @@ section {
   }
 }
 
+.splash {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .flip-h {
   transform: scale(-1, 1);
+}
+
+.hidden {
+  opacity: 0
 }
 </style>

@@ -9,7 +9,7 @@
       variant="light"
     >
       <b-navbar-brand href="#">
-        August Pemberton
+        imagiro
       </b-navbar-brand>
     </b-navbar>
   </transition>

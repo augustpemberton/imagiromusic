@@ -10,7 +10,6 @@ import App from './App.vue'
 
 // import components
 import Navbar from './components/Navbar'
-import Blockstage from './components/Blockstage'
 
 // styles
 import './scss/bootstrap.scss'
@@ -21,7 +20,6 @@ Vue.use(VueKonva);
 
 // create components
 Vue.component('navbar', Navbar)
-Vue.component('blockstage', Blockstage);
 
 Vue.config.productionTip = false
 new Vue({

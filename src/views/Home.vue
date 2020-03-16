@@ -1,71 +1,55 @@
 <template>
-  <div>
-    <div 
-      id="fold-container"
-      class="main foldable" 
-    />
-  
-    <section class="splash">
-      <div class="splash-text animated fadeInUp">
-        <h1 :class="{'flip-h' : flipLogo}">
-          imagiro
-        </h1>
-      </div>
-    </section>
+  <div 
+    ref="pin" 
+    class="pin-container" 
+  >
+    <splash class="panel panel-0" />
+    <releases class="panel panel-1" />
   </div>
 </template>
 
 <script>
-import '@/scripts/fold.js';
 export default {
-  data: function () {
-    return {
-      show: true,
-      flipLogo: false,
-    }
-  },
   mounted() {
-    this.$nextTick(function() {
-      window.addEventListener("scroll", this.handleScroll);
-    });
+   this.$nextTick(this.pinContainerScene)
+  },
+  destroyed() {
+    this.$ksvuescr.$emit('destroy')
   },
   methods: {
-    handleScroll: function () {
-      this.flipLogo = (document.documentElement.scrollTop > 100 ? true : false);
+    pinContainerScene() {
+      const tl = new this.$gsap.TimelineMax()
+      tl.fromTo('.panel-1', 1.5, {x: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeOut'})      
+
+      const scene = new this.$scrollmagic.Scene({
+        triggerElement: '.pin-container',
+        triggerHook: 'onLeave',
+        duration: '400%'
+      })
+      .setPin('.pin-container')
+      .setTween(tl)
+
+      this.$ksvuescr.$emit('addScene', 'pinContainerScene', scene)
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss">
-@import '@/scss/fold.scss';
-.main {
-  background: $bg-image no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  h1 {
-    color: white;
-    -webkit-transition: transform .0.2s ease-in-out;  
-    -moz-transition: transform .2s ease-in-out;  
-    -o-transition: transform .2s ease-in-out;  
-    transition: transform .2s ease-in-out;
-  }
-}
 
-.splash {
+.pin-container {
+  width: 100%;
   height: 100vh;
+  overflow: hidden; 
+  position: relative;
+}
+
+.panel {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.flip-h {
-  transform: scale(-1, 1);
-}
-
-.hidden {
-  opacity: 0
 }
 </style>

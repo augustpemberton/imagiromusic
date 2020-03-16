@@ -15,16 +15,23 @@ var orientation = {
 var options = {
 	tileSize: 80,
 	color: "#4fb0ca",
-	randomColor: false
+	randomColor: true
 }
 
 function r_color() {
-	var values = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" ];
-	var color = "#", i = 7;
+  var colors = {'#828953':5, '#626948':5, '#A7A65B':5, '#8D814A':5, '#AA552E':3, '#444444':2};
 
-	while ( --i ) color += values[ ~~( Math.random() * 16 ) ];
+  var chanceArray = []
+  for (var color in colors) {
+    if (Object.prototype.hasOwnProperty.call(colors, color)) {
+      for (var i=0; i<colors[color]; i++) {
+        chanceArray.push(color);
+      }
+    }
+  }
 
-	return color;
+  var index = chanceArray.length * Math.random();
+  return chanceArray[Math.floor(index)];
 }
 
 var random = function( min, max ) {
@@ -47,8 +54,12 @@ var Tile = function( x, y, color, onComplete ) {
 		div.style.left = x * options.tileSize + "px";
 
 		inlay = document.createElement( "div" );
-		inlay.className = "inlay";
-    inlay.style.backgroundColor = r_color();
+    inlay.className = "inlay";
+    if (options.randomColor) {
+      inlay.style.backgroundColor = r_color();
+    } else {
+      inlay.style.backgroundColor = options.color;
+    }
 
 		cover = document.createElement( "div" );
 		cover.className = "cover";
@@ -270,13 +281,13 @@ function onTouchEnd( event ) {
 }
 
 function start() {
-  container = document.getElementById( "fold-container" );
-  /*var event = {
+  container = document.getElementById( "foldable" );
+  var event = {
     pageX: window.innerWidth / 2,
     pageY: window.innerHeight / 2
-  } */
+  }
   
-  //onClick( event );
+  onClick( event );
 }
 
 initListeners();

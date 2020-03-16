@@ -1,0 +1,12 @@
+<template>
+  <div>
+    <iframe 
+      width="100%" 
+      height="20" 
+      scrolling="no" 
+      frameborder="no" 
+      allow="autoplay" 
+      src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/774221023&color=%23ff5500&inverse=true&auto_play=false&show_user=true" 
+    />
+  </div>
+</template>

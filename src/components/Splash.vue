@@ -8,11 +8,14 @@
       >
         imagiro
       </h1>
+      <h2 class="subtitle"> 
+        music 
+      </h2>
     </div>
   </section>
 </template>
 <script>
-import '@/scripts/fold.js';
+import fold from '@/scripts/fold.js';
 export default {
   data: function () {
     return {
@@ -24,6 +27,7 @@ export default {
     this.$nextTick(function() {
       window.addEventListener("scroll", this.handleScroll);
     });
+    fold.init('foldable');
   },
   methods: {
     handleScroll: function () {
@@ -47,11 +51,19 @@ export default {
 }
 
 .logo {
+  font-size: 19em;
+  letter-spacing: -20px;
   color: white;
   -webkit-transition: all .0.2s ease-in-out;  
   -moz-transition: all .2s ease-in-out;  
   -o-transition: all .2s ease-in-out;  
   transition: all .2s ease-in-out;
+}
+
+.subtitle {
+  color: black;
+  font-size: 5em;
+  letter-spacing: -10px;
 }
 
 #foldable {

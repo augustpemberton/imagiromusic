@@ -19,12 +19,13 @@ export default {
   methods: {
     pinContainerScene() {
       const tl = new this.$gsap.TimelineMax()
-      tl.fromTo('.panel-1', 1.5, {x: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeOut'})      
+      tl.fromTo('.panel-1', 1.5, {y: '200%'}, {x: '0%', y: '0%', ease: 'Power1.easeOut'}, 0)
+      tl.to('.release-info', 0.5, {opacity: 1, ease:'Power2.easeOIn'}, 1)
 
       const scene = new this.$scrollmagic.Scene({
         triggerElement: '.pin-container',
         triggerHook: 'onLeave',
-        duration: '400%'
+        duration: '200%'
       })
       .setPin('.pin-container')
       .setTween(tl)

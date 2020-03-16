@@ -19,7 +19,7 @@ var options = {
 }
 
 function r_color() {
-  var colors = {'#828953':5, '#626948':5, '#A7A65B':5, '#8D814A':5, '#AA552E':3, '#444444':2};
+  var colors = {'#828953':7, '#626948':7, '#A7A65B':7, '#8D814A':7, '#AA552E':1, '#444444':2};
 
   var chanceArray = []
   for (var color in colors) {
@@ -236,8 +236,8 @@ var Controller = function( container, size, position ) {
 
 function initListeners() {
 
-	document.addEventListener( "click", onClick, false );
-	document.addEventListener( "touchstart", onTouchEnd, false );
+	container.addEventListener( "click", onClick, false );
+	container.addEventListener( "touchstart", onTouchEnd, false );
 
 }
 
@@ -290,6 +290,13 @@ function start() {
   onClick( event );
 }
 
-initListeners();
 
-setTimeout( start, 1000 );
+var fold = {
+  init(id, startDelay = 1000) {
+    container = document.getElementById(id);
+    initListeners();
+    setTimeout(start, startDelay);
+  }
+}
+
+export default fold;

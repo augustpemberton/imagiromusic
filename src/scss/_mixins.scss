@@ -3,3 +3,23 @@
 @import "~animate.css/source/sliding_entrances/slideInRight.css";
 @import "~animate.css/source/sliding_entrances/slideInLeft.css";
 @import "~animate.css/source/attention_seekers/bounce.css";
+
+
+.txt-primary {
+  font-size: 15vw;
+  letter-spacing: -0.05em;
+  line-height: 110%;
+  @media (max-width: $sm) {
+    font-size: 28vw;
+  }
+}
+
+.txt-secondary {
+  color: black;
+  font-size: 2vw;
+  @media (max-width: $sm) {
+    font-size: 7vw;
+  }
+  letter-spacing: -0.05em;
+  z-index: -1;
+}

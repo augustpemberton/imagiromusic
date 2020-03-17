@@ -13,13 +13,14 @@ var orientation = {
 }
 
 var options = {
-	tileSize: 80,
+	tileSize: 100,
 	color: "#4fb0ca",
 	randomColor: true
 }
 
 function r_color() {
-  var colors = {'#828953':7, '#626948':7, '#A7A65B':7, '#8D814A':7, '#AA552E':1, '#444444':2};
+  //var colors = {'#828953':7, '#626948':7, '#A7A65B':7, '#8D814A':7, '#AA552E':1, '#444444':2};
+  var colors = {'#C2CCEF':7, '#94744E':1, '#D4A594':7, '#4D3F3E':1, '#444444':1};
 
   var chanceArray = []
   for (var color in colors) {

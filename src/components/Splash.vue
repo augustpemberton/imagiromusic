@@ -4,12 +4,20 @@
     <div class="splash-text animated fadeInUp">
       <h1 
         :class="{'flip-h': flipLogo}"
-        class="logo"
+        class="logo txt-primary"
       >
         imagiro
       </h1>
-      <h2 class="subtitle"> 
-        music 
+      <h2 
+        class="txt-secondary subtitle"
+      > 
+        <span 
+          v-for="index in 3" 
+          :key="index"
+        >
+          new single
+          "until i'm home" - March 18th<br>
+        </span>
       </h2>
     </div>
   </section>
@@ -31,7 +39,7 @@ export default {
   },
   methods: {
     handleScroll: function () {
-      this.flipLogo = (document.documentElement.scrollTop > 100 ? true : false);
+      this.flipLogo = (document.documentElement.scrollTop > 150 ? true : false);
     }
   }
 }
@@ -51,8 +59,6 @@ export default {
 }
 
 .logo {
-  font-size: 19em;
-  letter-spacing: -20px;
   color: white;
   -webkit-transition: all .0.2s ease-in-out;  
   -moz-transition: all .2s ease-in-out;  
@@ -61,9 +67,19 @@ export default {
 }
 
 .subtitle {
-  color: black;
-  font-size: 5em;
-  letter-spacing: -10px;
+  height: 2.4em;
+  overflow: hidden;
+  line-height: 1.2em;
+  transition: all 1s ease-out;
+  position: absolute;
+  @media (min-width: $sm) {
+    top: -30%;
+    left: 50%;
+  }
+  @media (max-width: $sm) {
+    left: 0%;
+    top: -100%;
+  }
 }
 
 #foldable {

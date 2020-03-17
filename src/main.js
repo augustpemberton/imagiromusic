@@ -7,15 +7,27 @@ import VueKonva from 'vue-konva'
 import jQuery from 'jquery'
 import KsVueScrollMagic from 'ks-vue-scrollmagic'
 import Soundcloud from 'soundcloud'
+import Feather from 'vue-icon'
+
+//icons
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faPlayCircle)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // import views
 import App from './App.vue'
 
 // import components
 import Navbar from './components/Navbar'
-import Releases from './components/Releases'
 import Splash from './components/Splash'
 import Player from './components/Player'
+
+//import releases
+import PebbleBeach from './components/PebbleBeach'
+import UntilImHome from './components/UntilImHome'
 
 // styles
 import './scss/bootstrap.scss'
@@ -24,6 +36,7 @@ import './scss/bootstrap.scss'
 Vue.use(BootstrapVue)
 Vue.use(VueKonva);
 Vue.use(KsVueScrollMagic);
+Vue.use(Feather, 'v-icon');
 Vue.prototype.$sc = Soundcloud;
 
 const $ = jQuery;
@@ -31,7 +44,8 @@ window.$ = $;
 
 // create components
 Vue.component('navbar', Navbar)
-Vue.component('releases', Releases);
+Vue.component('pebble-beach', PebbleBeach);
+Vue.component('until-im-home', UntilImHome);
 Vue.component('splash', Splash);
 Vue.component('player', Player);
 

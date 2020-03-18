@@ -8,6 +8,7 @@ import jQuery from 'jquery'
 import KsVueScrollMagic from 'ks-vue-scrollmagic'
 import Soundcloud from 'soundcloud'
 import Feather from 'vue-icon'
+import VueGtag from 'vue-gtag'
 
 //icons
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -37,6 +38,10 @@ Vue.use(BootstrapVue)
 Vue.use(VueKonva);
 Vue.use(KsVueScrollMagic);
 Vue.use(Feather, 'v-icon');
+Vue.use(VueGtag, {
+  config: { id: 'UA-160945605-1'}
+}, router);
+
 Vue.prototype.$sc = Soundcloud;
 
 const $ = jQuery;

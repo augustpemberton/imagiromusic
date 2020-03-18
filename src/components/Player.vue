@@ -1,7 +1,7 @@
 <template>
   <div>
     <iframe 
-      width="100%" 
+      width="50%" 
       height="20" 
       scrolling="no" 
       frameborder="no" 

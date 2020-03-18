@@ -19,8 +19,8 @@
               class="soundcloud-player"
               :track-url="soundcloud" 
             />-->
-            <span class="soundcloud-player">
-              available tomorrow!
+            <span class="label">
+              &copy; stereofox 2020
             </span>
           </div>
           <div class="release-type txt-secondary">
@@ -28,7 +28,13 @@
               v-for="index in 6" 
               :key="index"
             >
-              presave now &#x21A1;&#x21A1; <br>
+              listen now 
+              <span class="desktop-only">
+                &#x21F8;&#x21F8;
+              </span>
+              <span class="mobile-only">
+                &#x21A1;&#x21A1; 
+              </span>
             </span>
           </div>
         </b-col>
@@ -39,7 +45,6 @@
         >
           <div 
             class="release-art"
-            @click="openRelease()"
           >
             <!--<b-img 
               class="release-art-img"
@@ -47,14 +52,49 @@
               alt="Pebble Beach album cover"
               fluid
             />-->
-            <v-icon 
-              class="play-icon-2"
-              name="save" 
-            />
             <div 
-              class="release-art-img-2" 
-              :style="artstyle"
-            />
+              class="top-left"
+              @click="openRelease()"
+            >
+              <v-icon 
+                class="play-icon-2"
+                name="play" 
+              />
+              <div 
+                class="release-art-img-2" 
+                :style="artstyle"
+                @click="openRelease()"
+              />
+            </div>
+            <div class="bottom-left desktop-only">
+              <div class="read-prompt txt-secondary">
+                <span 
+                  v-for="index in 6" 
+                  :key="index"
+                >
+                  read now 
+                  <span class="desktop-only">
+                    &#x21F8;&#x21F8;
+                  </span>
+                  <span class="mobile-only">
+                    &#x21A1;&#x21A1; 
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div 
+              class="bottom-right"
+              @click="openWriteup()"
+            >
+              <v-icon 
+                class="play-icon-2"
+                name="book-open" 
+              />
+              <div 
+                class="release-art-img-2" 
+                :style="artstyle"
+              />
+            </div>
           </div>
         </b-col>
       </b-row>
@@ -89,7 +129,12 @@ export default {
   },
   methods: {
     openRelease() {
+      this.$gtag.event('release');
       window.open(this.url, '_blank')
+    },
+    openWriteup() {
+      this.$gtag.event('writeup');
+      window.open('https://label.stereofox.com/release/imagiro-until-im-home/', '_blank')
     },
     releaseScene() {
       const scene = new this.$scrollmagic.Scene({
@@ -124,6 +169,34 @@ export default {
   @media (max-width: $sm) {
     left: 60%;
   }
+}
+
+.read-prompt {
+  margin: 50px 5px 50px 200px;
+}
+
+.top-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 50%;
+  bottom: 50%;
+}
+
+.bottom-left {
+  position: absolute;
+  top: 50%;
+  bottom: 0%;
+  right: 50%;
+  left: 0%;
+}
+
+.bottom-right {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: 0%;
+  bottom: 0%;
 }
 
 .release-art {
@@ -180,6 +253,16 @@ export default {
   bottom: 20px;
   @media (max-width: $sm) {
     bottom: -48vh;
+  }
+}
+
+.label {
+  color: black;
+  position: absolute;
+  bottom: 20px;
+  @media (max-width: $sm) {
+    bottom: -48vh;
+    font-size: 4vw;
   }
 }
 </style>

@@ -15,17 +15,24 @@
               {{ title }} 
             </h1>
             <br>
-            <player 
-              class="soundcloud-player"
-              :track-url="soundcloud" 
-            />
+            <span class="label">
+              &copy; HIP DOZER 2020
+            </span>
           </div>
           <div class="release-type txt-secondary">
             <span 
               v-for="index in 6" 
               :key="index"
             >
-              listen now &#x21A1;&#x21A1; <br>
+              listen now 
+              <span class="desktop-only">
+                &#x21F8;&#x21F8;
+              </span>
+              <span class="mobile-only">
+                &#x21A1;&#x21A1; 
+              </span>
+              
+              <br>
             </span>
           </div>
         </b-col>
@@ -86,6 +93,7 @@ export default {
   },
   methods: {
     openRelease() {
+      this.$gtag.event('release');
       window.open(this.url, '_blank')
     },
     releaseScene() {
@@ -168,6 +176,16 @@ export default {
   bottom: 20px;
   @media (max-width: $sm) {
     bottom: -48vh;
+  }
+}
+
+.label {
+  color: black;
+  position: absolute;
+  bottom: 20px;
+  @media (max-width: $sm) {
+    bottom: -48vh;
+    font-size: 4vw;
   }
 }
 </style>

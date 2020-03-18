@@ -12,11 +12,10 @@
         class="txt-secondary subtitle"
       > 
         <span 
-          v-for="index in 3" 
+          v-for="index in 6" 
           :key="index"
         >
-          new single
-          "until i'm home" - March 18th<br>
+          new single "until i'm home"<br>
         </span>
       </h2>
     </div>
@@ -67,7 +66,7 @@ export default {
 }
 
 .subtitle {
-  height: 2.4em;
+  height: 1.2em;
   overflow: hidden;
   line-height: 1.2em;
   transition: all 1s ease-out;

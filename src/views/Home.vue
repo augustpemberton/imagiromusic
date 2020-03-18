@@ -7,8 +7,8 @@
     <until-im-home 
       class="panel panel-2" 
       title="until i'm home"
-      soundcloud=""
-      url="https://distrokid.com/hyperfollow/imagiro1/until-im-home-2"
+      soundcloud="https://soundcloud.com/wearestereofox/imagiro-until-im-home"
+      url="https://fanlink.to/imagiro-home"
       artwork="img/releases/untilimhome.jpg"
     />
     <pebble-beach 
@@ -61,7 +61,7 @@ export default {
       setTimeout(function(){
         if (window.$('html, body').scrollTop() == 0){
           window.$('html, body').animate({
-            scrollTop: 100
+            scrollTop: 70
           }, 1000)
         }
       }, 5000)

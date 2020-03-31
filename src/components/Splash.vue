@@ -15,7 +15,7 @@
           v-for="index in 6" 
           :key="index"
         >
-          new single "until i'm home"<br>
+          new single "starry night"<br>
         </span>
       </h2>
     </div>
@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     handleScroll: function () {
-      this.flipLogo = (document.documentElement.scrollTop > 150 ? true : false);
+      this.flipLogo = (document.documentElement.scrollTop > 180 ? true : false);
     }
   }
 }

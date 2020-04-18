@@ -15,7 +15,7 @@
           v-for="index in 6" 
           :key="index"
         >
-          new single "starry night"<br>
+          until i'm home EP - 22nd april<br>
         </span>
       </h2>
     </div>

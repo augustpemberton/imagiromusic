@@ -4,11 +4,18 @@
     class="pin-container" 
   >
     <splash class="panel panel-0" />
+    <places-i-remember
+      class="panel panel-4" 
+      title="places i remember"
+      soundcloud="https://soundcloud.com/hipdozer/imagiro-starry-night"
+      url="https://backl.ink/131299220"
+      artwork="img/releases/starrynight.jpg"
+    />
     <starry-night 
       class="panel panel-3" 
       title="starry night"
       soundcloud="https://soundcloud.com/hipdozer/imagiro-starry-night"
-      url="https://backl.ink/128514045"
+      url="https://imagiro.fanlink.to/starrynight"
       artwork="img/releases/starrynight.jpg"
     />
     <until-im-home 
@@ -46,17 +53,21 @@ export default {
   methods: {
     pinContainerScene() {
       const tl = new this.$gsap.TimelineMax()
-      tl.fromTo('.panel-3', 0.8, {y: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeInOut'}, 0)
-      tl.fromTo('.release-art-img-3', 1, {width: '0%', height: '0%'}, {width: '100%', height: '100%', ease: 'Power2.easeOut'}, 0.6);
+      tl.fromTo('.panel-4', 0.8, {y: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeInOut'}, 0)
+      tl.fromTo('.release-art-img-4', 1, {width: '0%', height: '0%'}, {width: '100%', height: '100%', ease: 'Power2.easeOut'}, 0.6);
+      tl.fromTo('.play-icon-4', 0.2, {color: '#C2CCEF;'}, {color: '#FFFFFF', ease: 'Power3.easeOut'}, 0.9);
+
+      tl.fromTo('.panel-3', 0.8, {y: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeOut'}, 1.3)
+      tl.fromTo('.release-art-img-3', 1, {width: '0%', height: '0%'}, {width: '100%', height: '100%', ease: 'Power2.easeOut'}, 1.9);
       tl.fromTo('.play-icon-3', 0.2, {color: '#C2CCEF;'}, {color: '#FFFFFF', ease: 'Power3.easeOut'}, 0.9);
 
-      tl.fromTo('.panel-2', 0.8, {y: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeOut'}, 1.3)
-      tl.fromTo('.release-art-img-2', 1, {width: '0%', height: '0%'}, {width: '100%', height: '100%', ease: 'Power2.easeOut'}, 1.9);
+      tl.fromTo('.panel-2', 0.8, {y: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeInOut'}, 2.6)
+      tl.fromTo('.release-art-img-2', 1, {width: '0%', height: '0%'}, {width: '100%', height: '100%', ease: 'Power2.easeOut'}, 3.2);
       tl.fromTo('.play-icon-2', 0.2, {color: '#828953;'}, {color: '#FFFFFF', ease: 'Power3.easeOut'}, 2.8);
 
-      tl.fromTo('.panel-1', 0.8, {y: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeInOut'}, 2.6)
-      tl.fromTo('.release-art-img-1', 1, {width: '0%', height: '0%'}, {width: '100%', height: '100%', ease: 'Power2.easeOut'}, 3.2);
-      tl.fromTo('.play-icon-1', 0.2, {color: '#C2CCEF;'}, {color: '#FFFFFF', ease: 'Power3.easeOut'}, 3.1);
+      tl.fromTo('.panel-1', 0.8, {y: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeInOut'}, 3.9)
+      tl.fromTo('.release-art-img-1', 1, {width: '0%', height: '0%'}, {width: '100%', height: '100%', ease: 'Power2.easeOut'}, 4.5);
+      tl.fromTo('.play-icon-1', 0.2, {color: '#C2CCEF;'}, {color: '#FFFFFF', ease: 'Power3.easeOut'}, 4.4);
 
       const scene = new this.$scrollmagic.Scene({
         triggerElement: '.pin-container',

@@ -8,7 +8,7 @@
           class="release-column"
           cols="12" 
           md="6"
-          style="padding: 0px"
+          style="padding: 0px; z-index: 999"
         >
           <div class="release-info">
             <h1 class="release-title txt-primary">
@@ -24,7 +24,7 @@
               v-for="index in 6" 
               :key="index"
             >
-              listen now 
+              pre-save now 
               <span class="desktop-only">
                 &#x21F8;&#x21F8;
               </span>
@@ -39,7 +39,7 @@
         <b-col 
           cols="12"
           md="6"
-          style="padding: 0px"
+          style="padding: 0px; z-index: 1"
         >
           <div 
             class="release-art"
@@ -52,11 +52,11 @@
               fluid
             />-->
             <v-icon 
-              class="play-icon-3"
-              name="play" 
+              class="play-icon-4"
+              name="save" 
             />
             <div 
-              class="release-art-img-3" 
+              class="release-art-img-4" 
               :style="artstyle"
             />
           </div>
@@ -114,6 +114,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.txt-primary {
+  font-size: 15em;
+  z-index: 999;
+  @media (max-width: $sm) {
+    font-size: 20vw;
+  }
+}
 .releases {
   background-color: #828953;
 }
@@ -125,7 +132,7 @@ export default {
 .release-type {
   position:absolute;
   top: 2%;
-  left: 70%;
+  left: 65%;
   @media (max-width: $sm) {
     left: 60%;
   }
@@ -140,7 +147,7 @@ export default {
   border-color: #444444;*/
 }
 
-.release-art-img-3 {
+.release-art-img-4 {
   position: absolute;
   background-size: cover;
   background-repeat: no-repeat;
@@ -149,7 +156,7 @@ export default {
   width: 100%;
   height: 100%;
 }
-.play-icon-3 {
+.play-icon-4 {
   position: absolute;
   top: 25%;
   left: 25%;

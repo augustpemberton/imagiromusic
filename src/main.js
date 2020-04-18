@@ -30,6 +30,7 @@ import Player from './components/Player'
 import PebbleBeach from './components/PebbleBeach'
 import UntilImHome from './components/UntilImHome'
 import StarryNight from './components/StarryNight'
+import PlacesIRemember from './components/PlacesIRemember'
 
 // styles
 import './scss/bootstrap.scss'
@@ -53,6 +54,7 @@ Vue.component('navbar', Navbar)
 Vue.component('pebble-beach', PebbleBeach);
 Vue.component('until-im-home', UntilImHome);
 Vue.component('starry-night', StarryNight);
+Vue.component('places-i-remember', PlacesIRemember);
 Vue.component('splash', Splash);
 Vue.component('player', Player);
 

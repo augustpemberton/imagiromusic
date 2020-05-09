@@ -19,8 +19,10 @@ var options = {
 }
 
 function r_color() {
-  var colors = {'#828953':7, '#626948':7, '#A7A65B':7, '#8D814A':7, '#AA552E':1, '#444444':2};
+  var colors = {'#1C2D61': 5, '#2E3D7C': 2, '#222520': 3, '#EC1F97': 1, '#63407E': 3};
+  //var colors = {'#828953':7, '#626948':7, '#A7A65B':7, '#8D814A':7, '#AA552E':1, '#444444':2};
   //var colors = {'#C2CCEF':7, '#94744E':1, '#D4A594':7, '#4D3F3E':1, '#444444':1};
+
 
   var chanceArray = []
   for (var color in colors) {

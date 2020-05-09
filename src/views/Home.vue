@@ -4,39 +4,56 @@
     class="pin-container" 
   >
     <splash class="panel panel-0" />
-    <places-i-remember
-      class="panel panel-4" 
-      title="places i remember"
-      soundcloud="https://soundcloud.com/hipdozer/imagiro-starry-night"
-      url="https://backl.ink/131299220"
-      artwork="img/releases/starrynight.jpg"
-    />
-    <starry-night 
-      class="panel panel-3" 
-      title="starry night"
-      soundcloud="https://soundcloud.com/hipdozer/imagiro-starry-night"
-      url="https://imagiro.fanlink.to/starrynight"
-      artwork="img/releases/starrynight.jpg"
-    />
-    <until-im-home 
-      class="panel panel-2" 
-      title="until i'm home"
-      soundcloud="https://soundcloud.com/wearestereofox/imagiro-until-im-home"
-      url="https://fanlink.to/imagiro-home"
-      artwork="img/releases/untilimhome.jpg"
-    />
-    <pebble-beach 
-      class="panel panel-1" 
-      title="pebble beach"
-      soundcloud="https://soundcloud.com/hipdozer/imagiro-pebble-beach"
-      url="https://imagiro.fanlink.to/pebblebeach"
-      artwork="img/releases/pebblebeach.jpg"
+    <release 
+      v-for="(release, index) in releases"
+      :key="release.title"
+      :class="'panel panel-'+(index+1)" 
+      :release="release"
     />
   </div>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      releases: [
+        {
+          title: "until i'm home",
+          artwork: "img/releases/untilimhome.jpg",
+          url: "https://fanlink.to/imagiro-home",
+          readLink: "https://label.stereofox.com/release/imagiro-until-im-home/",
+          label: "stereofox",
+          released: "true",
+          backgroundColor: "#C2CCEF",
+          dark: false,
+          txtSmall: true
+        },
+        {
+          title: "places i remember",
+          artwork: "img/releases/starrynight.jpg",
+          url: "https://imagiro.fanlink.to/places",
+          readLink: null,
+          label: "HIP DOZER",
+          released: "true",
+          backgroundColor: "#828953",
+          dark: false,
+          txtSmall: true,
+        },
+        {
+          title: "red echoes",
+          artwork: "img/releases/redechoes.jpg",
+          url: "https://open.spotify.com/album/2ofuvE3jNeRSUJ3O1Xe1Le?si=Qx4HW1KFQISFwG6_XIyJ0g",
+          readLink: null,
+          label: "arbour & imagiro",
+          released: "true",
+          backgroundColor: "#1C2D61",
+          dark: true,
+          txtSmall: false
+        }
+      ].reverse()
+    }
+  },
   mounted() {
     this.$nextTick(this.pinContainerScene)
     this.promptScroll()
@@ -53,21 +70,14 @@ export default {
   methods: {
     pinContainerScene() {
       const tl = new this.$gsap.TimelineMax()
-      tl.fromTo('.panel-4', 0.8, {y: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeInOut'}, 0)
-      tl.fromTo('.release-art-img-4', 1, {width: '0%', height: '0%'}, {width: '100%', height: '100%', ease: 'Power2.easeOut'}, 0.6);
-      tl.fromTo('.play-icon-4', 0.2, {color: '#C2CCEF;'}, {color: '#FFFFFF', ease: 'Power3.easeOut'}, 0.9);
 
-      tl.fromTo('.panel-3', 0.8, {y: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeOut'}, 1.3)
-      tl.fromTo('.release-art-img-3', 1, {width: '0%', height: '0%'}, {width: '100%', height: '100%', ease: 'Power2.easeOut'}, 1.9);
-      tl.fromTo('.play-icon-3', 0.2, {color: '#C2CCEF;'}, {color: '#FFFFFF', ease: 'Power3.easeOut'}, 0.9);
-
-      tl.fromTo('.panel-2', 0.8, {y: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeInOut'}, 2.6)
-      tl.fromTo('.release-art-img-2', 1, {width: '0%', height: '0%'}, {width: '100%', height: '100%', ease: 'Power2.easeOut'}, 3.2);
-      tl.fromTo('.play-icon-2', 0.2, {color: '#828953;'}, {color: '#FFFFFF', ease: 'Power3.easeOut'}, 2.8);
-
-      tl.fromTo('.panel-1', 0.8, {y: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeInOut'}, 3.9)
-      tl.fromTo('.release-art-img-1', 1, {width: '0%', height: '0%'}, {width: '100%', height: '100%', ease: 'Power2.easeOut'}, 4.5);
-      tl.fromTo('.play-icon-1', 0.2, {color: '#C2CCEF;'}, {color: '#FFFFFF', ease: 'Power3.easeOut'}, 4.4);
+      for (var i=0; i<this.releases.length; i++) {
+        var p = i+1;
+        var t = 1.5 * i;
+        tl.fromTo('.panel-'+p, 0.8, {y: '100%'}, {x: '0%', y: '0%', ease: 'Power1.easeInOut'}, t+0)
+        tl.fromTo('.panel-'+p+' .release-art-img', 1, {width: '0%', height: '0%'}, {width: '100%', height: '100%', ease: 'Power2.easeOut'}, t+0.6);
+        tl.fromTo('.panel-'+p+' .play-icon', 0.2, {color: this.releases[i].backgroundColor}, {color: '#FFFFFF', ease: 'Power3.easeOut'}, t+1);
+      }
 
       const scene = new this.$scrollmagic.Scene({
         triggerElement: '.pin-container',
@@ -108,5 +118,33 @@ export default {
   top: 0;
   left: 0;
   display: flex;
+}
+
+.top-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 50%;
+  bottom: 50%;
+}
+
+.bottom-left {
+  position: absolute;
+  top: 50%;
+  bottom: 0%;
+  right: 50%;
+  left: 0%;
+}
+
+.bottom-right {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: 0%;
+  bottom: 0%;
+}
+
+.read-prompt {
+  margin: 50px 5px 50px 200px;
 }
 </style>

@@ -10,12 +10,13 @@
       </h1>
       <h2 
         class="txt-secondary subtitle"
+        style="color: #EC1F97"
       > 
         <span 
           v-for="index in 6" 
           :key="index"
         >
-          until i'm home EP - 22nd april<br>
+          red echoes w/ arbour - out now<br>
         </span>
       </h2>
     </div>
@@ -66,8 +67,9 @@ export default {
 }
 
 .subtitle {
+  width: 100%;
   height: 1.2em;
-  overflow: hidden;
+  overflow-y: hidden;
   line-height: 1.2em;
   transition: all 1s ease-out;
   position: absolute;

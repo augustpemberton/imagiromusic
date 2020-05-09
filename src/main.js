@@ -22,15 +22,9 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 import App from './App.vue'
 
 // import components
-import Navbar from './components/Navbar'
 import Splash from './components/Splash'
 import Player from './components/Player'
-
-//import releases
-import PebbleBeach from './components/PebbleBeach'
-import UntilImHome from './components/UntilImHome'
-import StarryNight from './components/StarryNight'
-import PlacesIRemember from './components/PlacesIRemember'
+import Release from './components/Release'
 
 // styles
 import './scss/bootstrap.scss'
@@ -50,11 +44,7 @@ const $ = jQuery;
 window.$ = $;
 
 // create components
-Vue.component('navbar', Navbar)
-Vue.component('pebble-beach', PebbleBeach);
-Vue.component('until-im-home', UntilImHome);
-Vue.component('starry-night', StarryNight);
-Vue.component('places-i-remember', PlacesIRemember);
+Vue.component('release', Release);
 Vue.component('splash', Splash);
 Vue.component('player', Player);
 

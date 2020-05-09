@@ -1,5 +1,9 @@
 <template>
-  <section class="releases">
+  <section 
+    v-if="release" 
+    class="releases"
+    :style="backgroundColorStyle"
+  >
     <b-container fluid>
       <b-row 
         style="height: 100%; padding: 0px;"
@@ -11,30 +15,42 @@
           style="padding: 0px"
         >
           <div class="release-info">
-            <h1 class="release-title txt-primary">
-              {{ title }} 
+            <h1 
+              :class="{'txt-small': release.txtSmall}"
+              class="release-title txt-primary"
+            >
+              {{ release.title }} 
             </h1>
             <br>
-            <!--<player 
-              class="soundcloud-player"
-              :track-url="soundcloud" 
-            />-->
-            <span class="label">
-              &copy; stereofox 2020
+            <span 
+              :class="{'txt-white': release.dark}"
+              class="label"
+            >
+              &copy; {{ release.label }} 2020
             </span>
           </div>
-          <div class="release-type txt-secondary">
+          <div 
+            :class="{'txt-white': release.dark}"
+            class="release-type txt-secondary"
+          >
             <span 
               v-for="index in 6" 
               :key="index"
             >
-              listen now 
+              <span v-if="release.released">
+                listen now 
+              </span>
+              <span v-else>
+                presave now
+              </span>
               <span class="desktop-only">
                 &#x21F8;&#x21F8;
               </span>
               <span class="mobile-only">
                 &#x21A1;&#x21A1; 
               </span>
+              
+              <br>
             </span>
           </div>
         </b-col>
@@ -44,24 +60,19 @@
           style="padding: 0px"
         >
           <div 
+            v-if="release.readLink"
             class="release-art"
           >
-            <!--<b-img 
-              class="release-art-img"
-              src="/img/releases/pebblebeach.jpg"
-              alt="Pebble Beach album cover"
-              fluid
-            />-->
             <div 
               class="top-left"
               @click="openRelease()"
             >
               <v-icon 
-                class="play-icon-2"
-                name="play" 
+                class="play-icon"
+                :name="release.released ? 'play' : 'save'" 
               />
               <div 
-                class="release-art-img-2" 
+                class="release-art-img" 
                 :style="artstyle"
                 @click="openRelease()"
               />
@@ -87,14 +98,29 @@
               @click="openWriteup()"
             >
               <v-icon 
-                class="play-icon-2"
+                class="play-icon"
                 name="book-open" 
               />
               <div 
-                class="release-art-img-2" 
+                class="release-art-img" 
                 :style="artstyle"
               />
             </div>
+          </div>
+
+          <div 
+            v-else
+            class="release-art"
+            @click="openRelease()"
+          >
+            <v-icon 
+              class="play-icon"
+              :name="release.released ? 'play' : 'save'" 
+            />
+            <div 
+              class="release-art-img"
+              :style="artstyle"
+            />
           </div>
         </b-col>
       </b-row>
@@ -105,36 +131,27 @@
 <script>
 export default {
   props: {
-    title: {
-      type: String,
-      default: 'title'
+    release: {
+      type: Object,
+      default: () => {}
     },
-    soundcloud: {
-      type: String,
-      default: ''
-    },
-    artwork: {
-      type: String,
-      default: ''
-    },
-    url: {
-      type: String,
-      default: ''
-    }
   },
   computed: {
     artstyle() {
-      return 'background-image: url(' + this.artwork + ');'
+      return 'background-image: url(' + this.release.artwork + ');'
+    },
+    backgroundColorStyle() {
+      return 'background-color: ' + this.release.backgroundColor
     }
   },
   methods: {
     openRelease() {
       this.$gtag.event('release');
-      window.open(this.url, '_blank')
+      window.open(this.release.url, '_blank')
     },
     openWriteup() {
       this.$gtag.event('writeup');
-      window.open('https://label.stereofox.com/release/imagiro-until-im-home/', '_blank')
+      window.open(this.release.readLink, '_blank')
     },
     releaseScene() {
       const scene = new this.$scrollmagic.Scene({
@@ -154,10 +171,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.releases {
-  background-color: #C2CCEF;
+
+
+.txt-small {
+  font-size: 15em;
+  @media (max-width: $sm) {
+    font-size: 20vw;
+  }
 }
+
 .release-column {
+  z-index: 999;
   @media (max-width: $sm) {
     height: 0%;
   }
@@ -171,34 +195,6 @@ export default {
   }
 }
 
-.read-prompt {
-  margin: 50px 5px 50px 200px;
-}
-
-.top-left {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 50%;
-  bottom: 50%;
-}
-
-.bottom-left {
-  position: absolute;
-  top: 50%;
-  bottom: 0%;
-  right: 50%;
-  left: 0%;
-}
-
-.bottom-right {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  right: 0%;
-  bottom: 0%;
-}
-
 .release-art {
   height: 100%;
   width: auto;
@@ -207,28 +203,25 @@ export default {
   border-width: 20px;
   border-color: #444444;*/
 }
-.release-art-img { 
-  height: 100%;
-  width: auto;
-}
-.release-art-img-2 {
+
+.release-art-img {
   position: absolute;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: 0% 50%;
+  background-position: 20% 50%;
   width: 100%;
   height: 100%;
 }
-.play-icon-2 {
+.play-icon {
   position: absolute;
   top: 25%;
   left: 25%;
   width: 50%;
   z-index: 999;
-  color: #C2CCEF;
+  color: #828953;
   &:hover {
-    color: #4D3F3E;
+    color: black;
   }
   transition: color .2s;
 }
@@ -237,22 +230,8 @@ export default {
   z-index: 3;
   margin: 20vh 10px 10px 10px;
   color: white;
-  .release-title {
-    font-size: 14vw;
-  }
   @media (max-width: $sm) {
-    .release-title {
-      font-size: 25vw;
-    }
     margin: 5vh 10px 10px 10px;
-  }
-}
-
-.soundcloud-player {
-  position: absolute;
-  bottom: 20px;
-  @media (max-width: $sm) {
-    bottom: -48vh;
   }
 }
 
@@ -264,5 +243,9 @@ export default {
     bottom: -48vh;
     font-size: 4vw;
   }
+}
+
+.txt-white {
+  color: white;
 }
 </style>

@@ -1,5 +1,8 @@
 # imagiromusic.com
 
+Source code for the imagiromusic.com website.
+
+
 ## Project setup
 ```
 npm install
